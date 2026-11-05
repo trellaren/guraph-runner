@@ -1,0 +1,18 @@
+Guraph runner
+Copyright (c) 2026 Guraph. All rights reserved.
+
+This is a placeholder notice. A full licence will replace it.
+
+You may download and run this software only to act as a runner for a
+Guraph organization you are authorized to use. You may not modify,
+redistribute, sublicense or reverse engineer it, except where the law
+allows that whatever this notice says.
+
+The software includes third-party components under their own licences:
+Node.js (MIT, https://github.com/nodejs/node/blob/main/LICENSE) and the
+Claude Agent SDK and its Claude Code CLI (Anthropic's terms,
+https://www.anthropic.com/legal/commercial-terms).
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE.
