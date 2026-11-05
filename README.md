@@ -104,6 +104,32 @@ Every setting is an environment variable.
 | `GURAPH_GITHUB_ORIGIN`              | `https://github.com`                         | A GitHub Enterprise host, if that is where your code is        |
 | `ANTHROPIC_API_KEY`                 | none                                         | Used only by an agent that names no model connection           |
 
+## How Claude signs in
+
+An agent whose model connection in Guraph holds a key uses that key, and the
+sign-ins below are ignored for it. An agent with no connection signs in
+with whatever the runner was started with. That can be any one of these:
+
+- **An Anthropic API key:** `ANTHROPIC_API_KEY`.
+- **Your Claude subscription:** run `claude setup-token` once on any machine
+  where Claude Code is signed in, and start the runner with the token it
+  prints as `CLAUDE_CODE_OAUTH_TOKEN`. A `claude login` on the runner's own
+  machine is not seen, because each job runs with an empty home folder.
+- **Amazon Bedrock:** `CLAUDE_CODE_USE_BEDROCK=1`, `AWS_REGION`, and either
+  `AWS_BEARER_TOKEN_BEDROCK` or the usual `AWS_ACCESS_KEY_ID` and
+  `AWS_SECRET_ACCESS_KEY`. For a profile, name its files with
+  `AWS_CONFIG_FILE` and `AWS_SHARED_CREDENTIALS_FILE`.
+- **Google Cloud:** `CLAUDE_CODE_USE_VERTEX=1`, `CLOUD_ML_REGION`,
+  `ANTHROPIC_VERTEX_PROJECT_ID` and `GOOGLE_APPLICATION_CREDENTIALS`.
+- **Microsoft Foundry:** `CLAUDE_CODE_USE_FOUNDRY=1`,
+  `ANTHROPIC_FOUNDRY_RESOURCE`, and `ANTHROPIC_FOUNDRY_API_KEY` or
+  `ANTHROPIC_FOUNDRY_AUTH_TOKEN`.
+
+A cloud's credentials reach the agent only when that cloud is switched on.
+Every credential is removed from what the runner reports to Guraph. Usage is
+billed to whoever owns the key, subscription or cloud account; Guraph never
+pays for or resells it.
+
 ## Updating
 
 - **Docker:** `docker pull ghcr.io/trellaren/guraph-runner:latest`, then
@@ -115,11 +141,13 @@ it exits.
 
 ## What it holds
 
-It never holds a person's sign-in, Guraph's database keys, or a repository
-credential beyond the job it was leased for. It logs one JSON line per
+It never holds a person's Guraph sign-in, Guraph's database keys, or a
+repository credential beyond the job it was leased for. It logs one JSON line per
 event, by job and run id, never an agent's output. What the agent said and
 did is in your Guraph organization, behind its permissions.
 
 ## Licence
 
-See [LICENSE](LICENSE).
+See [LICENSE](LICENSE). The Claude Code CLI inside each download and the
+image is Anthropic's, unmodified, and under
+[Anthropic's terms](https://code.claude.com/docs/en/legal-and-compliance).
